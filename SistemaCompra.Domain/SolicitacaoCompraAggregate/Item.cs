@@ -1,25 +1,25 @@
 ﻿using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SistemaCompra.Domain.Core;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class Item : Entity
+    public class ItemDaCompra : Entity
     {
-        public Produto Produto { get; set; }
-        public int Qtde { get; set; }
-        private Item() { }
+        public Produto Produto { get; private set; }
+        public int Qtde { get; private set; }
+        
+        private ItemDaCompra() { }
 
-        public decimal Subtotal => ObterSubtotal();
-
-        public Item(Produto produto, int qtde)
+        public ItemDaCompra(Produto produto, int qtde)
         {
-            Produto = produto ?? throw new ArgumentNullException(nameof(produto));
+            if (produto == null) throw new BusinessRuleException("O item da compra não pode ser nulo");
+            if (qtde < 1) throw new BusinessRuleException("Quantidade de itens da campo deve ser maior que 0");
+            
+            Produto = produto;
             Qtde = qtde;
         }
 
-        private decimal ObterSubtotal() => Produto.Preco * Qtde;
+        public decimal ObterSubTotal() => Produto.Preco * Qtde;
     }
 }

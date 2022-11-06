@@ -1,20 +1,18 @@
 ﻿using SistemaCompra.Domain.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SistemaCompra.Domain.Core.Model;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class NomeFornecedor
+    public class Fornecedor : Entity
     {
-        public string Nome { get; }
+        public string Nome { get; private set; }
 
-        private NomeFornecedor() { }
+        private Fornecedor() { }
 
-        public NomeFornecedor(string nome)
+        public Fornecedor(string nome)
         {
-            if (String.IsNullOrWhiteSpace(nome)) throw new ArgumentNullException(nameof(nome));
-            if (nome.Length < 10) throw new BusinessRuleException("Nome de fornecedor deve ter pelo menos 10 caracteres.");
+            if (string.IsNullOrWhiteSpace(nome)) throw new BusinessRuleException("Nome de fornecedor não pode ser nulo.");
+            if (nome.Length < 3) throw new BusinessRuleException("Nome de fornecedor deve ter pelo menos 3 caracteres.");
 
             Nome = nome;
         }
