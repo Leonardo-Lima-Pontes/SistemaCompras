@@ -1,38 +1,34 @@
-﻿using SistemaCompra.Domain.Core;
-using SistemaCompra.Domain.Core.Model;
+﻿using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
-using SistemaCompra.Domain.SolicitacaoCompraAggregate.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class SolicitacaoCompra : Entity
+    public class SolicitacaoDeCompra : Entity
     {
-        public UsuarioSolicitante UsuarioSolicitante { get; private set; }
-        public NomeFornecedor NomeFornecedor { get; private set; }
-        public IList<Item> Itens { get; private set; }
-        public DateTime Data { get; private set; }
-        public decimal TotalGeral { get; private set; }
+        public DateTime DataDaCompra { get; private set; }
+        public decimal TotalDaCompra { get; private set; }
         public Situacao Situacao { get; private set; }
+        public UsuarioSolicitante UsuarioSolicitante { get; private set; }
+        public Fornecedor NomeFornecedor { get; private set; }
+        public CondicaoDePagamento CondicaoDePgamento { get; private set; }
+        public IList<ItemDaCompra> Itens { get; private set; }
 
-        private SolicitacaoCompra() { }
+        private SolicitacaoDeCompra() { }
 
-        public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor)
+        public SolicitacaoDeCompra(string usuarioSolicitante, string nomeFornecedor, int condicaoDePagamentoEmDias)
         {
             UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
-            NomeFornecedor = new NomeFornecedor(nomeFornecedor);
-            Data = DateTime.Now;
+            NomeFornecedor = new Fornecedor(nomeFornecedor);
+            CondicaoDePgamento = new CondicaoDePagamento(condicaoDePagamentoEmDias);
+            DataDaCompra = DateTime.Now;
             Situacao = Situacao.Solicitado;
         }
 
-        public void AdicionarItem(Produto produto, int qtde)
-        {
-            Itens.Add(new Item(produto, qtde));
-        }
+        public void AdicionarItem(Produto produto, int qtde) => Itens.Add(new ItemDaCompra(produto, qtde));
 
-        public void RegistrarCompra(IEnumerable<Item> itens)
+        public void RegistrarCompra(IEnumerable<ItemDaCompra> itens)
         {
            
         }

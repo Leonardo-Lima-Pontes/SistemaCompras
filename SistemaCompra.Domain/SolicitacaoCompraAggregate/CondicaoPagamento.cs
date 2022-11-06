@@ -1,21 +1,22 @@
 ﻿using SistemaCompra.Domain.Core;
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using SistemaCompra.Domain.Core.Model;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class CondicaoPagamento
+    public class CondicaoDePagamento : Entity
     {
-        private IList<int> _valoresPossiveis = new List<int>() { 0, 30, 60, 90 };
-        public int Valor { get; private set; }
+        private readonly IReadOnlyCollection<int> _valoresPossiveis = new List<int> { 0, 30, 60, 90 };
+        public int CondicaoEmDias { get; private set; }
 
-        private CondicaoPagamento(){}
+        private CondicaoDePagamento(){}
 
-        public CondicaoPagamento(int condicao)
+        public CondicaoDePagamento(int condicaoEmDias)
         {
-            if (!_valoresPossiveis.Contains(condicao)) throw new BusinessRuleException("Condição de pagamento deve ser " +_valoresPossiveis.ToString());
+            if (!_valoresPossiveis.Contains(condicaoEmDias)) throw new BusinessRuleException("Condição de pagamento deve ser " +_valoresPossiveis);
 
-            Valor = condicao;
+            CondicaoEmDias = condicaoEmDias;
         }
     }
 }
