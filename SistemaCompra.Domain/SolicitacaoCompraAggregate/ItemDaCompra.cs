@@ -8,7 +8,8 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
     {
         public Produto Produto { get; private set; }
         public int Qtde { get; private set; }
-        
+        public int SolicitacaoDeCompraId { get; private set; }
+        public SolicitacaoDeCompra SolicitacaoDeCompra { get; set; }
         private ItemDaCompra() { }
 
         public ItemDaCompra(Produto produto, int qtde)
