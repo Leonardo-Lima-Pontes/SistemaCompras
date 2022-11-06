@@ -1,36 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SistemaCompra.Domain.Core;
-using SistemaCompra.Infra.Data.Produto;
-using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;
-using SolicitacaoAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
+using SistemaCompra.Domain.ProdutoAggregate;
+using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 
 namespace SistemaCompra.Infra.Data
 {
     public class SistemaCompraContext : DbContext
     {
-        public static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+        private static readonly ILoggerFactory LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
 
-        public SistemaCompraContext(DbContextOptions options) : base(options) { }
-        public DbSet<ProdutoAgg.Produto> Produtos { get; set; }
+        public SistemaCompraContext(DbContextOptions<SistemaCompraContext> options) : base(options) { }
+        
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<SolicitacaoDeCompra> SolicitacoesDeCompra { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProdutoAgg.Produto>()
-                .HasData(
-                    new ProdutoAgg.Produto("Produto01", "Descricao01", "Madeira", 100)
-                );
-
             modelBuilder.Ignore<Event>();
 
-            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SistemaCompraContext).Assembly);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLoggerFactory(loggerFactory)  
+            optionsBuilder.UseLoggerFactory(LoggerFactory)  
                 .EnableSensitiveDataLogging()
-                .UseSqlServer(@"Server=localhost\SQLEXPRESS01;Database=SistemaCompraDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+                .UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=MinhaApiCore;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

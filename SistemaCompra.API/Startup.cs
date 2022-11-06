@@ -7,13 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SistemaCompra.Application.Produto;
 using SistemaCompra.Domain.ProdutoAggregate;
-using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using SistemaCompra.Infra.Data;
-using SistemaCompra.Infra.Data.Produto;
 using SistemaCompra.Infra.Data.UoW;
 using System;
+using SistemaCompra.Infra.Data.Repositories;
 
 namespace SistemaCompra.API
 {
