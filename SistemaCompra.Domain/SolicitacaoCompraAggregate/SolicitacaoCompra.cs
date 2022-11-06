@@ -21,7 +21,6 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public SolicitacaoCompra(string usuarioSolicitante, string nomeFornecedor)
         {
-            Id = Guid.NewGuid();
             UsuarioSolicitante = new UsuarioSolicitante(usuarioSolicitante);
             NomeFornecedor = new NomeFornecedor(nomeFornecedor);
             Data = DateTime.Now;

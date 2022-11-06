@@ -8,10 +8,11 @@ namespace SistemaCompra.Domain.Core.Model
     {
         public IList<Event> Events { get; private set; }
 
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
 
-        public Entity()
+        protected Entity()
         {
+            Id = Guid.NewGuid();
             Events = new List<Event>();
         }
 
