@@ -39,7 +39,7 @@ namespace SistemaCompra.API
 
             services.AddDbContext<SistemaCompraContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"), 
+                    Configuration.GetConnectionString("LeonardoLimaConnection"), 
                     o=> o.MigrationsAssembly("SistemaCompra.API"))
             );
 
