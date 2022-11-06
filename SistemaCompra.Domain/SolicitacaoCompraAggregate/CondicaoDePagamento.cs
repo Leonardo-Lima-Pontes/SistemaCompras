@@ -18,5 +18,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
             CondicaoEmDias = condicaoEmDias;
         }
+
+        public void ModificarCondicaoDePagamentoPara30Dias() => CondicaoEmDias = 30;
     }
 }
