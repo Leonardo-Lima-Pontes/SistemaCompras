@@ -14,7 +14,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public NomeFornecedor NomeFornecedor { get; private set; }
         public IList<Item> Itens { get; private set; }
         public DateTime Data { get; private set; }
-        public Money TotalGeral { get; private set; }
+        public decimal TotalGeral { get; private set; }
         public Situacao Situacao { get; private set; }
 
         private SolicitacaoCompra() { }

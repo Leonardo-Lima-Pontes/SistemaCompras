@@ -8,8 +8,7 @@ namespace SistemaCompra.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<ProdutoAgg.Produto, ObterProdutoViewModel>()
-                .ForMember(d=> d.Preco, o=> o.MapFrom(src=> src.Preco.Value));
+            CreateMap<ProdutoAgg.Produto, ObterProdutoViewModel>();
         }
     }
 }

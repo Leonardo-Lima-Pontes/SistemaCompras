@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class UsuarioSolicitante : ValueObject<UsuarioSolicitante>
+    public class UsuarioSolicitante
     {
         public string Nome { get; }
 
@@ -18,11 +18,6 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             if (nome.Length < 5) throw new BusinessRuleException("Nome de usuário deve possuir pelo menos 8 caracteres.");
             
             Nome = nome;
-        }
-
-        protected override IEnumerable<object> GetAttributesToIncludeInEqualityCheck()
-        {
-            return new List<object>() { Nome };
         }
     }
 }
