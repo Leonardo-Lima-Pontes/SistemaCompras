@@ -14,7 +14,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public UsuarioSolicitante UsuarioSolicitante { get; private set; }
         public Fornecedor NomeFornecedor { get; private set; }
         public CondicaoDePagamento CondicaoDePgamento { get; private set; }
-        private IList<ItemDaCompra> ItensDaCompra { get; set; }
+        private List<ItemDaCompra> ItensDaCompra { get; set; }
 
         private SolicitacaoDeCompra() { }
 
@@ -28,9 +28,9 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             ItensDaCompra = new List<ItemDaCompra>();
         }
 
-        public void RegistrarCompra(IEnumerable<ItemDaCompra> itensDaCompra)
+        public void RegistrarCompra(IList<ItemDaCompra> itensDaCompra)
         {
-            AtribuirItensDaCompra(itensDaCompra.ToList());
+            AtribuirItensDaCompra(itensDaCompra);
             ProcessarTotalDaCompra();
             ProcesarCondicaoDePagamento();
         }
@@ -43,11 +43,11 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         private void ProcessarTotalDaCompra() => TotalDaCompra = ItensDaCompra.Sum(item => item.ObterSubTotal());
 
-        private void AtribuirItensDaCompra(IReadOnlyCollection<ItemDaCompra> itemsDaCompra)
+        private void AtribuirItensDaCompra(IList<ItemDaCompra> itemsDaCompra)
         {
             if (!itemsDaCompra.Any()) throw new BusinessRuleException("O compra precisa conter itens para ser registrada");
 
-            ItensDaCompra.ToList().AddRange(itemsDaCompra);
+            ItensDaCompra.AddRange(itemsDaCompra);
         }
     }
 }
