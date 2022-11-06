@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SistemaCompra.Domain.Core;
 using SistemaCompra.Domain.ProdutoAggregate;
 using SistemaCompra.Domain.SolicitacaoCompraAggregate;
+using SistemaCompra.Infra.Data.Mappings;
 
 namespace SistemaCompra.Infra.Data
 {
@@ -19,14 +20,8 @@ namespace SistemaCompra.Infra.Data
         {
             modelBuilder.Ignore<Event>();
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SistemaCompraContext).Assembly);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseLoggerFactory(LoggerFactory)  
-                .EnableSensitiveDataLogging()
-                .UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=MinhaApiCore;Trusted_Connection=True;MultipleActiveResultSets=true");
+            modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
+            modelBuilder.ApplyConfiguration(new SolicitacaoDeCompraMapping());
         }
     }
 }

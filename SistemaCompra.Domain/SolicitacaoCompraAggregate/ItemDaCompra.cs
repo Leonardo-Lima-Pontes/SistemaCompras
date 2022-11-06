@@ -1,15 +1,12 @@
-﻿using SistemaCompra.Domain.Core.Model;
-using SistemaCompra.Domain.ProdutoAggregate;
+﻿using SistemaCompra.Domain.ProdutoAggregate;
 using SistemaCompra.Domain.Core;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class ItemDaCompra : Entity
+    public class ItemDaCompra
     {
-        public Produto Produto { get; private set; }
-        public int Qtde { get; private set; }
-        public int SolicitacaoDeCompraId { get; private set; }
-        public SolicitacaoDeCompra SolicitacaoDeCompra { get; set; }
+        public Produto Produto { get; set; }
+        public int Qtde { get; set; }
         private ItemDaCompra() { }
 
         public ItemDaCompra(Produto produto, int qtde)

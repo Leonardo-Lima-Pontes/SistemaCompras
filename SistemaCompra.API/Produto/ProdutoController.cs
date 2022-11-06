@@ -44,7 +44,6 @@ namespace SistemaCompra.API.Produto
         {
              _mediator.Send(atualizarPrecoCommand);
             return Ok();
-
         }
     }
 }

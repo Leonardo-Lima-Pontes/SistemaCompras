@@ -1,6 +1,6 @@
 ﻿namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public interface ISolicitacaoCompraRepository
+    public interface ISolicitacaoDeCompraRepository
     {
         void RegistrarCompra(SolicitacaoDeCompra solicitacaoCompra);
     }

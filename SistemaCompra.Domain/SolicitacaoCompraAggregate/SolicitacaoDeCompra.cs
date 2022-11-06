@@ -14,7 +14,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public UsuarioSolicitante UsuarioSolicitante { get; private set; }
         public Fornecedor NomeFornecedor { get; private set; }
         public CondicaoDePagamento CondicaoDePgamento { get; private set; }
-        public IList<ItemDaCompra> ItensDaCompra { get; private set; }
+        private IList<ItemDaCompra> ItensDaCompra { get; set; }
 
         private SolicitacaoDeCompra() { }
 

@@ -7,14 +7,14 @@ namespace SistemaCompra.Domain.ProdutoAggregate
 {
     public class Produto : Entity
     {
-        public Categoria Categoria { get; private set; }
-        public decimal Preco { get; private set; }
-        public string Descricao { get; private set; }
-        public string Nome { get; private set; }
+        public Categoria Categoria { get; set; }
+        public decimal Preco { get; set; }
+        public string Descricao { get; set; }
+        public string Nome { get; set; }
 
-        public Situacao Situacao { get; private set; }
+        public Situacao Situacao { get; set; }
 
-        private Produto(){}
+        public Produto(){}
 
         public Produto(string nome, string descricao, string categoria, decimal preco)
         {
@@ -35,7 +35,7 @@ namespace SistemaCompra.Domain.ProdutoAggregate
             Situacao = Situacao.Suspenso;
         }
 
-        public void AtualizarPreco(decimal preco)
+        public void AtualizarPreco(decimal preco)   
         {
             if (Situacao != Situacao.Ativo) throw new BusinessRuleException("Produto deve estar ativo!");
 

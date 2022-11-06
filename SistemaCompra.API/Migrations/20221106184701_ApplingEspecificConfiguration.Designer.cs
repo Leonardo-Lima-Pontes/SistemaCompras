@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaCompra.Infra.Data;
 
 namespace SistemaCompra.API.Migrations
 {
     [DbContext(typeof(SistemaCompraContext))]
-    partial class SistemaCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20221106184701_ApplingEspecificConfiguration")]
+    partial class ApplingEspecificConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +47,30 @@ namespace SistemaCompra.API.Migrations
                     b.ToTable("Produto");
                 });
 
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.ItemDaCompra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Qtde")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SolicitacaoDeCompraId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("SolicitacaoDeCompraId");
+
+                    b.ToTable("ItemDaCompra");
+                });
+
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoDeCompra", b =>
                 {
                     b.Property<Guid>("Id")
@@ -63,6 +89,19 @@ namespace SistemaCompra.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SolicitacoesDeCompra");
+                });
+
+            modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.ItemDaCompra", b =>
+                {
+                    b.HasOne("SistemaCompra.Domain.ProdutoAggregate.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
+
+                    b.HasOne("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoDeCompra", "SolicitacaoDeCompra")
+                        .WithMany("ItensDaCompra")
+                        .HasForeignKey("SolicitacaoDeCompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaCompra.Domain.SolicitacaoCompraAggregate.SolicitacaoDeCompra", b =>

@@ -1,9 +1,8 @@
 ﻿using SistemaCompra.Domain.Core;
-using SistemaCompra.Domain.Core.Model;
 
 namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 {
-    public class UsuarioSolicitante : Entity
+    public class UsuarioSolicitante
     {
         public string Nome { get; private set; }
 

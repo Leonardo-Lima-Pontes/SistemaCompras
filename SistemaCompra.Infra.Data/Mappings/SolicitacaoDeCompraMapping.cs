@@ -10,13 +10,28 @@ namespace SistemaCompra.Infra.Data.Mappings
         {
             builder.HasKey(s => s.Id);
 
-            builder.HasMany(s => s.ItensDaCompra)
-                .WithOne(s => s.SolicitacaoDeCompra)
-                .HasForeignKey(s => s.SolicitacaoDeCompraId);
-
-            builder.HasOne(s => s.NomeFornecedor);
-            builder.HasOne(s => s.CondicaoDePgamento);
-            builder.HasOne(s => s.UsuarioSolicitante);
+            builder.OwnsOne(c => c.NomeFornecedor, cm =>
+            {
+                cm.Property(c => c.Nome)
+                    .HasColumnName("NomeDoFornecedor")
+                    .HasColumnType("VARCHAR(100)");
+            });
+            
+            builder.OwnsOne(c => c.CondicaoDePgamento, cm =>
+            {
+                cm.Property(c => c.CondicaoEmDias)
+                    .HasColumnName("CondicaoDePagamentoEmDias")
+                    .HasColumnType("int");
+            });
+            
+            builder.OwnsOne(c => c.UsuarioSolicitante, cm =>
+            {
+                cm.Property(c => c.Nome)
+                    .HasColumnName("NomeUsuarioSolicitante")
+                    .HasColumnType("VARCHAR(100)");
+            });
+            
+            builder.ToTable("SolicitacoesDeCompra");
         }
     }
 }
